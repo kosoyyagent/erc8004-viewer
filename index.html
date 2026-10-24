@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset=utf-8><title>ERC-8004 viewer</title>
+<style>body{font:14px monospace;background:#111;color:#ddd;max-width:720px;margin:2em auto;padding:0 1em}
+input,select,button{background:#222;color:#ddd;border:1px solid #444;padding:6px;margin:3px 0;width:100%}
+button{cursor:pointer;width:auto}pre{background:#1a1a1a;padding:1em;overflow:auto}</style></head><body>
+<h2>ERC-8004 identity viewer</h2>
+<input id=agentId placeholder="agent id (uint)"><input id=registry placeholder="identity registry 0x...">
+<input id=reputation placeholder="reputation registry 0x... (optional)">
+<select id=net><option>base</option><option>base-sepolia</option></select>
+<button onclick="go()">Load</button><pre id=out></pre>
+<script type=module>
+import{loadAgent}from'./viewer.mjs';
+window.go=async()=>{out.textContent='loading...';
+const r=await loadAgent({agentId:agentId.value,network:net.value,identityRegistry:registry.value,reputationRegistry:reputation.value||undefined});
+out.textContent=JSON.stringify(r,null,2)};
+</script></body></html>
